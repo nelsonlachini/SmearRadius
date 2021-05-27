@@ -1,0 +1,10 @@
+AUTOMAKE_OPTIONS = foreign
+ACLOCAL_AMFLAGS = -I .buildutils/m4
+#AM_CXXFLAGS = -fPIC -Wall -Wextra
+bin_PROGRAMS = filtered_smear singleload_smear multipleload_smear psiresampler evalresampler radiusresampler
+filtered_smear_SOURCES = Smear_radius_filtered.cpp
+singleload_smear_SOURCES = Smear_radius_singleLoad.cpp
+multipleload_smear_SOURCES = Smear_radius_multipleLoad.cpp
+psiresampler_SOURCES = Resampler_psi.cpp
+evalresampler_SOURCES = Resampler_eval.cpp
+radiusresampler_SOURCES = Resampler_radius.cpp
