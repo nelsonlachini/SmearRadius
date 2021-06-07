@@ -9,7 +9,6 @@ minimal compilation : clang++ ../Smear_radius_inefficient.cc -o inefficientsmear
 using namespace std;
 using namespace Grid;
 
-
 int main (int argc, char ** argv)
 {
     // bool doMock = true;
@@ -30,27 +29,26 @@ int main (int argc, char ** argv)
     LatticeColourMatrix outerPsi_r(&grid);
     
     // file handling
-    std::string stout_strength = "strong";
     std::string eigenFilepath;
-    // std::string eigenFilestem = "/tessfs1/work/dp008/dp008/dc-lach1/lapevecs/evecs_C0_" + stout_strength;
+    std::string eigenFilestem = "/tessfs1/work/dp008/dp008/dc-lach1/lapevec_new/result/eigen_rho0.200000_n12.1100.bin";
     // std::string eigenFilestem = "/tessfs1/work/dp008/dp008/dc-lach1/lapevecs/evecs_C1_" + stout_strength;
-    std::string eigenFilestem = "../../evec/eigen_test";
+    // std::string eigenFilestem = "../../eigenmock";
     std::ofstream f;
 
 
     // parameters
-    // std::vector<int> nvec_list = {1,4,8,12,16,24,32,48,64,88,112,128,152,200,260,310,380,450,490};
+    std::vector<int> nvec_list = {1,4,8,12,16,24,32,48,64,88,112,128,152,200,260,310,380,450,490};
     // std::vector<int> nvec_list = {1,2,4,6,8,10,15,20,25,30,35,40,45,50,55,60,70,80,90,100,110,120};
-    std::vector<int> nvec_list = {1};
+    // std::vector<int> nvec_list = {1};
     // unsigned int TRAJECTORY_START = 1100;
     // unsigned int TRAJECTORY_END = 1481;
     // unsigned int TRAJECTORY_STEP = 20;
     // unsigned int TRAJECTORY_START = 3140;
     // unsigned int TRAJECTORY_END = 3901;
     // unsigned int TRAJECTORY_STEP = 40;
-    unsigned int TRAJECTORY_START = 2000;
-    unsigned int TRAJECTORY_END = 2005;
-    unsigned int TRAJECTORY_STEP = 1;
+    unsigned int TRAJECTORY_START = 1100;
+    unsigned int TRAJECTORY_END = 1460;
+    unsigned int TRAJECTORY_STEP = 40;
     // if(doMock){
     //     TRAJECTORY_START = 2000;
     //     TRAJECTORY_END = 2000;
@@ -62,7 +60,7 @@ int main (int argc, char ** argv)
     std::vector<std::vector<RealD>> Psi_r(latt_size[Xdir]/2 + 1 , std::vector<RealD>(nvec_list.size(), 0.0));    //final Psi
     int i_nvec;
     
-    for(unsigned int i_conf=TRAJECTORY_START ; i_conf<=TRAJECTORY_END ; i_conf+=TRAJECTORY_STEP){
+    for(unsigned int i_conf=TRAJECTORY_START ; i_conf<TRAJECTORY_END ; i_conf+=TRAJECTORY_STEP){
         std::cout << GridLogMessage << "Starting measurement on trajectory " << i_conf << "..." << std::endl;
 
         // reseting Psi_r
@@ -91,7 +89,7 @@ int main (int argc, char ** argv)
                         cout << i+1 << endl;
                         cout << toReal(TensorRemove(sum(sqrt(trace(outerPsi_r * adj(outerPsi_r))))))/(3.0*vol*(i+1)*sqrt(Nc)) << endl;
                         std::cout<<GridLogMessage<< "Summing out Psi (trajectory " << i_conf << ", Nvec=" << i+1 << ", r_shift=" << r_shift << ", spatial_dir=" << spatial_dir << "):" << std::endl;
-                        cin.get();
+                        // cin.get();
                         i_nvec++;
                     }
                 }
